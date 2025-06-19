@@ -1,0 +1,45 @@
+{#=====================================================
+  Thing page
+  - Shows details of a single thing
+  - Has a delete link to remove it
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    {{ team.name }} - Info
+
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>{{team.name}}</h1>
+
+
+    <article class="thing">
+
+        <header>
+            <h3>{{ team.name }}</h3>
+        </header>
+
+        <img src="/image/{{ team.code }}" alt="{{ team.name }}">
+
+        <p>{{ team.description }}</p>
+
+
+        <a href="{{team.website}}" role="button">Check out the {{team.name}} website!</a>
+
+        <footer>
+            <a href="/delete/{{ team.code }}" onclick="return confirm('Really delete {{team.name}}?');">Delete {{team.name}}</a>
+        </footer>
+
+    </article>
+
+
+    <a role="button" href="/">Back to all teams</a>
+
+{% endblock %}
+

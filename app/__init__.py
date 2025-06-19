@@ -28,49 +28,41 @@ init_datetime(app)  # Handle UTC dates in timestamps
 #-----------------------------------------------------------
 @app.get("/")
 def index():
-    return render_template("pages/home.jinja")
+    with connect_db() as client:
+        # Get all the teams from the DB
+        sql = "SELECT code, name, description FROM teams ORDER BY name ASC"
+        params = []
+        result = client.execute(sql, params)
+        teams = result.rows
 
+        # And show them on the page
+        return render_template("pages/home.jinja", teams=teams)
 
-#-----------------------------------------------------------
-# About page route
-#-----------------------------------------------------------
-@app.get("/about/")
-def about():
-    return render_template("pages/about.jinja")
+        
 
 
 #-----------------------------------------------------------
 # Things page route - Show all the things, and new thing form
 #-----------------------------------------------------------
 @app.get("/things/")
-def show_all_things():
-    with connect_db() as client:
-        # Get all the things from the DB
-        sql = "SELECT id, name FROM things ORDER BY name ASC"
-        params = []
-        result = client.execute(sql, params)
-        things = result.rows
-
-        # And show them on the page
-        return render_template("pages/things.jinja", things=things)
 
 
 #-----------------------------------------------------------
 # Thing page route - Show details of a single thing
 #-----------------------------------------------------------
-@app.get("/thing/<int:id>")
-def show_one_thing(id):
+@app.get("/team/<string:id>")
+def show_team_info(id):
     with connect_db() as client:
         # Get the thing details from the DB
-        sql = "SELECT id, name, price FROM things WHERE id=?"
+        sql = "SELECT code, name, description FROM teams WHERE code=?"
         params = [id]
         result = client.execute(sql, params)
 
         # Did we get a result?
         if result.rows:
             # yes, so show it on the page
-            thing = result.rows[0]
-            return render_template("pages/thing.jinja", thing=thing)
+            team = result.rows[0]
+            return render_template("pages/team.jinja", team=team)
 
         else:
             # No, so show error

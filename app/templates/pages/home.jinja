@@ -4,34 +4,84 @@
 
 {% extends 'pages/base.jinja' %}
 
-
 {% block title %}
 
-    Flask Demo
+    All Teams
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Flask Demo App with Turso DB and Images</h1>
+    <h1>Meet the teams</h1>
 
-    <p>This is a simple Flask app that connects to a Turso database to save and retrieve data, including images. This can be used as the basis of your web app.</p>
 
-    <p>It includes...</p>
+    <article>
 
-    <ul>
-        <li>Example routes</li>
-        <li>Example static pages</li>
-        <li>Missing page and server error pages</li>
-        <li>DB connection and error handling</li>
-        <li>Example CRUD actions: Create and Delete</li>
-        <li>Uploading and saving images to the DB</li>
-        <li>Retrieval of saved images</li>
-        <li>Flash messages for information</li>
-    </ul>
+        <ul>
+            {% for team in teams %}
 
-    <a href="/things" role="button">Go to the Things...</a>
+                <li>
+                    <a href="/team/{{ team.code }}">
+                        {{ team.name }}
+                    </a>
+                </li>
+
+            {% else %}
+
+                <p>None!</p>
+
+            {% endfor %}
+        </ul>
+
+    </article>
+
+
+    <article>
+
+        <h3>Add a New Team</h3>
+
+        <form action="/add" method="POST" enctype="multipart/form-data">
+
+            <input
+                type="text"
+                name="name"
+                placeholder="The team name"
+                required
+            >
+
+            <input
+                type="text"
+                name="name"
+                placeholder="The team code (3 letters)"
+                required
+                maxlength="3"
+                minlength="3"
+            >
+
+            <input
+                type="text"
+                name="name"
+                placeholder="A short description"
+                required
+            >
+
+
+
+            <input
+                type="file"
+                name="image"
+                accept=".jpeg,.jpg,.png,.avif,.gif,.svg"
+                required
+            >
+
+            <button>Add Team!</button>
+
+        </form>
+
+    </article>
 
 {% endblock %}
+
+
 
