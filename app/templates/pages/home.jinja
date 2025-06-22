@@ -41,42 +41,50 @@
 
         <h3>Add a New Team</h3>
 
-        <form action="/add" method="POST" enctype="multipart/form-data">
+        <form action="/add-team" method="POST" enctype="multipart/form-data">
+            <fieldset>
 
-            <input
-                type="text"
-                name="name"
-                placeholder="The team name"
-                required
-            >
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="The team name"
+                    required
+                >
 
-            <input
-                type="text"
-                name="name"
-                placeholder="The team code (3 letters)"
-                required
-                maxlength="3"
-                minlength="3"
-            >
+                <input
+                    type="text"
+                    name="code"
+                    placeholder="The team code (3 letters)"
+                    required
+                    maxlength="3"
+                    minlength="3"
+                >
 
-            <input
-                type="text"
-                name="name"
-                placeholder="A short description"
-                required
-            >
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="A short description"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="website"
+                    placeholder="The Team Website"
+                    required
+                >
 
 
+                <input
+                    type="file"
+                    name="image"
+                    accept=".jpeg,.jpg,.png,.avif,.gif,.svg"
+                    required
+                >
 
-            <input
-                type="file"
-                name="image"
-                accept=".jpeg,.jpg,.png,.avif,.gif,.svg"
-                required
-            >
+                <button>Add Team!</button>
 
-            <button>Add Team!</button>
-
+            </fieldset>
         </form>
 
     </article>

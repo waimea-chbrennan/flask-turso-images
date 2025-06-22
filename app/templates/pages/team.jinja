@@ -16,8 +16,6 @@
 
 {% block content %}
 
-    <h1>{{team.name}}</h1>
-
 
     <article class="thing">
 
@@ -27,17 +25,64 @@
 
         <img src="/image/{{ team.code }}" alt="{{ team.name }}">
 
+
+
         <p>{{ team.description }}</p>
 
+        <a href="{{team.website}}">Check out the {{team.name}} website!</a>
 
-        <a href="{{team.website}}" role="button">Check out the {{team.name}} website!</a>
+        {% for player in players %}
+        <ul>
+            <li> 
+                <p><strong>{{player.name}}</strong>  {{player.notes}}</p>
+            </li>
+        </ul>
+           
+            
+        {% else %}
+            <h4> Team has no players!</h4>
+        {% endfor %}
 
-        <footer>
-            <a href="/delete/{{ team.code }}" onclick="return confirm('Really delete {{team.name}}?');">Delete {{team.name}}</a>
-        </footer>
+        
 
     </article>
 
+    <article>
+
+        <h3>Add new player to team</h3>
+
+        <form action="/add-player" method="POST" enctype="multipart/form-data">
+            <fieldset>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Player name"
+                    required
+                >
+
+                <input
+                    type="text"
+                    name="notes"
+                    placeholder="Description or notes"
+                >
+
+                <input
+                    type="hidden"
+                    name="team"
+                    value="{{ team.code }}"
+                >
+
+                <button>Add Player!</button>
+
+            </fieldset>
+        </form>
+
+    </article>
+
+    <footer>
+            <a href="/delete-team/{{ team.code }}" onclick="return confirm('Really delete {{team.name}}?');">Delete {{team.name}}</a>
+    </footer>
 
     <a role="button" href="/">Back to all teams</a>
 

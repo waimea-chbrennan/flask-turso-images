@@ -16,3 +16,7 @@ colorama
 
 # Timezones
 tzdata
+
+# Image Compression
+Pillow
+
